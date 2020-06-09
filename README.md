@@ -4,6 +4,7 @@
 
 ## Introduction
 
+- base antd
 - babel
 - build esm、cjs、umd
 - css dynamic import
@@ -14,7 +15,10 @@
 
 ### support import assets && supprot d.ts
 
-为了支持 babel 方式下，引入静态资源，并生成 d.ts 声明文件，提了 [PR](https://github.com/umijs/father/pull/220)，但 father2 目前官方没时间处理，我这里进行了 hack 处理
+为了支持 babel 方式下，引入静态资源，并生成 d.ts 声明文件，提了 [PR](https://github.com/umijs/father/pull/220)，但 father2 目前官方没时间处理，我这里进行了 hack 处理。
+
+注意：这里样式没有使用 cssModules，考虑到是文件到文件的编译，不会处理 css，所以使用 cssModules 后，构建产物
+也是 cssModules 的形式（形如 `import Styles from 'style/index.css`），需要在使用的项目中需要配置对 node_modules/lean 下的 cssModules 处理。
 
 通过 npm 的 `[postinstall](https://docs.npmjs.com/using-npm/scripts#npm-install)` 生命周期，对 node_modules 下的依赖进行 hack 处理：
 
@@ -156,6 +160,44 @@ extraBabelPlugins: [
 
 ```tsx
 import { Button } from 'lean'; // 这里会按需引入样式
+```
+
+## 发包后，在 umi 项目中使用 lean 组件库
+
+### 配置样式按需引入
+
+```ts
+// .umirc.ts
+extraBabelPlugins: [
+  [
+    'import',
+    {
+      libraryName: 'lean',
+      camel2DashComponentName: false,
+      customStyleName: (name: string) => {
+        // console.log(name)
+        return `lean/lib/${name}/style/index.css`;
+      },
+    },
+    'lean',
+  ],
+];
+```
+
+### 在 tsx 中使用
+
+```tsx
+import React from 'react';
+import { Foo, Button } from 'lean';
+
+export default () => {
+  return (
+    <div>
+      <Foo title="demo" />
+      <Button btnType="primary">primary</Button>
+    </div>
+  );
+};
 ```
 
 ## Getting Started

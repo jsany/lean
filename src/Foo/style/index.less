@@ -1,12 +1,16 @@
-.foo-center {
+@import '../../style/base.less';
+
+@btn-prefix-cls: ~'@{lean-prefix}-foo';
+
+.@{btn-prefix-cls} {
   display: flex;
   align-items: center;
   justify-content: center;
   color: red;
-  img{
+  img {
     max-width: 50px;
   }
 }
-img{
+img {
   max-width: 100%;
 }
