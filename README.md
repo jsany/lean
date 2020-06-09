@@ -1,13 +1,20 @@
 # lean
 
-> dumi babel exapple
+> dumi babel exapple （base father2）
+
+## babel 方式踩的坑
+
+> babel 方式是文件到文件的编译，不会做额外的处理
+
+- 不要在组件中使用 cssModules，否则，构建产物也会保持 cssModules 的引用方式（形如：`import Styles from 'style/index.css`）
+- 需要生成 d.ts 文件，需要引入静态资源，看 [PR](https://github.com/umijs/father/pull/220)
+- 如果需要 umd 产物，不要像 antd 那样 css 和 js 分离开发，因为 umd 使用的是 rollup 打包，分离开发下 css 没有依赖关系，不会被打包
 
 ## Introduction
 
 - base antd
 - babel
 - build esm、cjs、umd
-- css dynamic import
 - support import assets: css、image、...
 - supprot d.ts
 
@@ -16,9 +23,6 @@
 ### support import assets && supprot d.ts
 
 为了支持 babel 方式下，引入静态资源，并生成 d.ts 声明文件，提了 [PR](https://github.com/umijs/father/pull/220)，但 father2 目前官方没时间处理，我这里进行了 hack 处理。
-
-注意：这里样式没有使用 cssModules，考虑到是文件到文件的编译，不会处理 css，所以使用 cssModules 后，构建产物
-也是 cssModules 的形式（形如 `import Styles from 'style/index.css`），需要在使用的项目中需要配置对 node_modules/lean 下的 cssModules 处理。
 
 通过 npm 的 `[postinstall](https://docs.npmjs.com/using-npm/scripts#npm-install)` 生命周期，对 node_modules 下的依赖进行 hack 处理：
 
@@ -132,57 +136,7 @@ const run = () => {
 run();
 ```
 
-### css dynamic import
-
-dumi 会对 pkgName/es、pkgName/lib 做 alias，[详情见](https://github.com/umijs/dumi/blob/master/packages/preset-dumi/src/plugins/core.ts#L198)
-
-配置 `extraBabelPlugins` (注意是 `.umirc.ts` 的配置项，不是 `.fatherrc.ts`)，加入 [`babel-plugin-import`](https://github.com/ant-design/babel-plugin-import)，根据目录结构合理配置：
-
-- 配置 .umirc.ts：
-
-```tsx
-extraBabelPlugins: [
-  [
-    'import',
-    {
-      libraryName: 'lean',
-      camel2DashComponentName: false,
-      customStyleName: name => {
-        return `./style/index.less`; // 注意：这里 ./ 不可省略
-      },
-    },
-    'lean',
-  ],
-];
-```
-
-- 在 md 中引入组件：
-
-```tsx
-import { Button } from 'lean'; // 这里会按需引入样式
-```
-
 ## 发包后，在 umi 项目中使用 lean 组件库
-
-### 配置样式按需引入
-
-```ts
-// .umirc.ts
-extraBabelPlugins: [
-  [
-    'import',
-    {
-      libraryName: 'lean',
-      camel2DashComponentName: false,
-      customStyleName: (name: string) => {
-        // console.log(name)
-        return `lean/lib/${name}/style/index.css`;
-      },
-    },
-    'lean',
-  ],
-];
-```
 
 ### 在 tsx 中使用
 

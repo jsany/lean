@@ -2,6 +2,7 @@ import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { tuple } from '../utils/type';
 import { getPrefixCls } from '../utils/index';
+import './style/index.less';
 
 const buttonSizes = tuple('lg', 'sm');
 export type TButtonSize = typeof buttonSizes[number];
