@@ -1,0 +1,33 @@
+@import "../../style/base.less";
+@import "./mixin.less";
+
+@btn-prefix-cls: ~'@{lean-prefix}-btn';
+
+
+.@{btn-prefix-cls} {
+  .btn();
+
+  &-lg {
+    .btn-lg();
+  }
+
+  &-sm {
+    .btn-sm();
+  }
+
+  &-primary {
+    .btn-primary();
+  }
+
+  &-danger {
+    .btn-danger();
+  }
+
+  &-default {
+    .btn-default();
+  }
+
+  &-link {
+    .btn-link();
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "private": true,
+  "name": "lean",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:deploy": "gh-pages -d docs-dist",
+    "build": "father-build",
+    "deploy": "npm run docs:build && npm run docs:deploy",
+    "release": "npm run build && npm publish",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "postinstall": "node scripts/hack-depend.js"
+  },
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/index.umd.min.js",
+  "typings": "dist/index.d.ts",
+  "sideEffects": false,
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.2",
+    "classnames": "^2.2.6",
+    "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.0.5",
+    "dumi": "^1.0.8",
+    "father-build": "^1.18.0",
+    "gh-pages": "^3.0.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "vfile-message": "^2.0.4",
+    "yorkie": "^2.0.0"
+  },
+  "peerDependencies": {
+    "antd": "^4.3.3"
+  }
+}

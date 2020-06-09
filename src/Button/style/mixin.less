@@ -1,0 +1,127 @@
+// @import "../../style/base.less";
+
+.button-size(@padding-y, @padding-x, @font-size, @border-radius) {
+  padding: @padding-y @padding-x;
+  font-size: @font-size;
+  border-radius: @border-radius;
+}
+
+
+.button-style(@background,
+  @border,
+  @color,
+  @hover-background: lighten(@background, 7.5%),
+  @hover-border: lighten(@border, 10%),
+  @hover-color: @color,
+) {
+  color: @color;
+  background: @background;
+  border-color: @border;
+  &:hover {
+    color: @hover-color;
+    background: @hover-background;
+    border-color: @hover-border;
+  }
+
+  &:focus,
+  &.focus {
+    color: @hover-color;
+    background: @hover-background;
+    border-color: @hover-border;
+  }
+  &:active,
+  &.active {
+    color: darken(@color,5%);
+    background: darken(@background, 5%);
+    border-color: darken(@border,5%);
+  }
+  &:disabled,
+  &.disabled {
+    color: @color;
+    background: @background;
+    border-color: @border;
+  }
+}
+
+.btn() {
+  position: relative;
+  display: inline-block;
+  font-weight: @btn-font-weight;
+  line-height: @btn-line-height;
+  color: @body-color;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  background-image: none;
+  border: @btn-border-width solid transparent;
+  .button-size(@btn-padding-y, @btn-padding-x, @btn-font-size, @border-radius);
+  box-shadow: @btn-box-shadow;
+  cursor: pointer;
+  transition: @btn-transition;
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+  &:not([disabled]):hover {
+    text-decoration: none;
+  }
+  &:not([disabled]):active {
+    outline: 0;
+    box-shadow: none;
+  }
+  &.disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: @btn-disabled-opacity;
+    box-shadow: none;
+
+    >* {
+      pointer-events: none;
+    }
+  }
+}
+
+.btn-lg() {
+  .button-size(@btn-padding-y-lg, @btn-padding-x-lg, @btn-font-size-lg, @btn-border-radius-lg);
+}
+
+.btn-sm() {
+  .button-size(@btn-padding-y-sm, @btn-padding-x-sm, @btn-font-size-sm, @btn-border-radius-sm);
+}
+
+.btn-primary() {
+  .button-style(@primary, @primary, @white)
+}
+
+.btn-danger() {
+  .button-style(@danger, @danger, @white)
+}
+
+.btn-default() {
+  .button-style(@white, @gray-400, @body-color, @white, @primary, @primary)
+}
+
+.btn-link() {
+  font-weight: @font-weight-normal;
+  color: @btn-link-color;
+  text-decoration: @link-decoration;
+  box-shadow: none;
+
+  &:hover {
+    color: @btn-link-hover-color;
+    text-decoration: @link-hover-decoration;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: @link-hover-decoration;
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: @btn-link-disabled-color;
+    pointer-events: none;
+  }
+}
