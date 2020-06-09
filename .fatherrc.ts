@@ -1,15 +1,14 @@
-import {IBundleOptions} from 'father-build/src/types'
-
+import { IBundleOptions } from 'father-build/src/types';
 
 const findPath = moduleName => {
-  console.log(process.env.NODE_ENV, process.env.UMI_ENV);
-  console.log(require.resolve(moduleName));
+  // console.log(process.env.NODE_ENV, process.env.UMI_ENV);
+  // console.log(require.resolve(moduleName));
   const pathArr = require.resolve(moduleName).split('/');
   // console.log(pathArr)
   const pathIndex = pathArr.findIndex(path => path === moduleName);
-  console.log(pathIndex);
+  // console.log(pathIndex);
   const path = `${pathArr.slice(pathIndex).join('/')}`;
-  console.log(path);
+  // console.log(path);
   return path;
 };
 
@@ -40,5 +39,5 @@ const config: IBundleOptions = {
   namedExports: {
     [`${findPath('antd')}`]: ['Divider', '_Divider', 'divider'],
   },
-}
+};
 export default config;

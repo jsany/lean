@@ -1,15 +1,15 @@
 import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
 import classNames from 'classnames';
-import {tuple} from '@/utils/type'
-import {getPrefixCls} from '@/utils/index'
+import { tuple } from '../utils/type';
+import { getPrefixCls } from '../utils/index';
 
-const buttonSizes = tuple('lg','sm');
+const buttonSizes = tuple('lg', 'sm');
 export type TButtonSize = typeof buttonSizes[number];
 
-const buttonTypes = tuple('primary','default','danger','link')
+const buttonTypes = tuple('primary', 'default', 'danger', 'link');
 export type TButtonType = typeof buttonTypes[number];
 
-const buttonHtmlTypes = tuple('submit','button','reset');
+const buttonHtmlTypes = tuple('submit', 'button', 'reset');
 export type TButtonHtmlType = typeof buttonHtmlTypes[number];
 
 export interface IBaseButtonProps {
@@ -49,7 +49,7 @@ const Button: FC<TButtonProps> = props => {
     ...restProps
   } = props;
   // btn, btn-lg, btn-primary
-  const prefixCls = getPrefixCls('btn',customizePrefixCls)
+  const prefixCls = getPrefixCls('btn', customizePrefixCls);
   const classes = classNames(prefixCls, className, {
     [`${prefixCls}-${btnType}`]: btnType,
     [`${prefixCls}-${size}`]: size,
@@ -63,17 +63,22 @@ const Button: FC<TButtonProps> = props => {
     );
   }
   return (
-    <button className={classes} disabled={disabled} type={htmlType} {...restProps}>
+    <button
+      className={classes}
+      disabled={disabled}
+      type={htmlType}
+      {...restProps}
+    >
       {children}
     </button>
   );
 };
 
-Button.displayName = 'Button'
+Button.displayName = 'Button';
 Button.defaultProps = {
   disabled: false,
   btnType: 'default',
   htmlType: 'button',
-}
+};
 
 export default Button;
