@@ -17,6 +17,7 @@
 - build esm、cjs、umd
 - support import assets: css、image、...
 - supprot d.ts
+- support unitTest(@testing-library/react)
 
 ### 方案
 
@@ -178,4 +179,21 @@ Build library via `father-build`,
 
 ```bash
 $ npm run build
+```
+
+Test Components,
+
+```bash
+# test all components
+$ npm run test
+```
+
+```bash
+# test all components with coverage
+$ npm run test:coverage
+```
+
+```bash
+# test one component Foo
+$ npx umi-test src/Foo/index.test.tsx
 ```

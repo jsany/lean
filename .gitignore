@@ -12,6 +12,7 @@
 /docs-dist
 /lib
 /es
+/coverage
 
 # misc
 .DS_Store

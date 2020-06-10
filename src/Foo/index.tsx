@@ -6,11 +6,17 @@ import HeartImg from './images/heart.png';
 import BgImg from './images/bg_coins.png';
 import { getPrefixCls } from '../utils/index';
 
-const Foo: React.FC<{
+export type TFooProps = {
   title: string;
   className?: string;
   prefixCls?: string;
-}> = ({ title, className, prefixCls: customizePrefixCls }) => {
+};
+
+const Foo: React.FC<TFooProps> = ({
+  title,
+  className,
+  prefixCls: customizePrefixCls,
+}) => {
   const prefixCls = getPrefixCls('foo', customizePrefixCls);
 
   return (
