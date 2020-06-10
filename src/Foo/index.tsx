@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import './style/index.less';
 import HeartImg from './images/heart.png';
 import BgImg from './images/bg_coins.png';
-import { getPrefixCls } from '../utils/index';
+import { getPrefixCls } from '../_utils/index';
 
 export type TFooProps = {
   title: string;

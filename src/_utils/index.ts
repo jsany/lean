@@ -1,4 +1,4 @@
-import { PREFIX_CLS } from '../constants/base';
+import { PREFIX_CLS } from '../_constants/base';
 
 export const getPrefixCls = (
   suffixCls: string,
