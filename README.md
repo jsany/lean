@@ -63,50 +63,75 @@ const hacks = [
     name: 'father-build',
     path: '../node_modules/father-build/lib/babel.js',
     hack: data => {
-      console.log(data);
+      // console.log(data)
       return data
         .replace(
           `
-    function getTSConfig() {`,
-          `
-    function getTsconfigInclude(path) {
-      const config = parseTsconfig(path)
-      const includesPath = config.include || []
-      return includesPath
+    function getTsconfigCompilerOptions(path) {
+      const config = parseTsconfig(path);
+      return config ? config.compilerOptions : undefined;
     }
 
-    function getTSConfig() {`,
-        )
-        .replace(
-          `
-    function createStream(src) {`,
-          `
-    function getTSMatch() {
+    function getTSConfig() {
       const tsconfigPath = (0, _path.join)(cwd, 'tsconfig.json');
       const templateTsconfigPath = (0, _path.join)(__dirname, '../template/tsconfig.json');
+
       if ((0, _fs.existsSync)(tsconfigPath)) {
-        return getTsconfigInclude(tsconfigPath) || [];
+        return getTsconfigCompilerOptions(tsconfigPath) || {};
       }
+
       if (rootPath && (0, _fs.existsSync)((0, _path.join)(rootPath, 'tsconfig.json'))) {
-        return getTsconfigInclude((0, _path.join)(rootPath, 'tsconfig.json')) || [];
+        return getTsconfigCompilerOptions((0, _path.join)(rootPath, 'tsconfig.json')) || {};
       }
-      return getTsconfigInclude(templateTsconfigPath) || [];
+
+      return getTsconfigCompilerOptions(templateTsconfigPath) || {};
+    }`,
+          `
+    function getTsconfigCompilerOptions(path) {
+      const config = parseTsconfig(path);
+      return config ? config.compilerOptions : undefined;
     }
 
-    function createStream(src) {`,
+    function getTsconfigInclude(path) {
+      const config = parseTsconfig(path);
+      const includesPath = config ? config.include || [] : [];
+      return includesPath;
+    }
+
+    function getTSConfig() {
+      const tsconfigPath = (0, _path.join)(cwd, 'tsconfig.json');
+      const templateTsconfigPath = (0, _path.join)(__dirname, '../template/tsconfig.json');
+
+      if ((0, _fs.existsSync)(tsconfigPath)) {
+        return getTsconfigCompilerOptions(tsconfigPath) || {};
+      }
+
+      if (rootPath && (0, _fs.existsSync)((0, _path.join)(rootPath, 'tsconfig.json'))) {
+        return getTsconfigCompilerOptions((0, _path.join)(rootPath, 'tsconfig.json')) || {};
+      }
+
+      return getTsconfigCompilerOptions(templateTsconfigPath) || {};
+    }
+
+    function getTSMatch() {
+      const tsconfigPath = join(cwd, 'tsconfig.json');
+      const templateTsconfigPath = join(__dirname, '../template/tsconfig.json');
+      if (existsSync(tsconfigPath)) {
+        return getTsconfigInclude(tsconfigPath) || [];
+      }
+      if (rootPath && existsSync(join(rootPath, 'tsconfig.json'))) {
+        return getTsconfigInclude(join(rootPath, 'tsconfig.json')) || [];
+      }
+      return getTsconfigInclude(templateTsconfigPath) || [];
+    }`,
         )
         .replace(
-          `
-    return /\.tsx?$/.test(path) && !path.endsWith('.d.ts');`,
-          `
-    const isTypings = path.endsWith('typings.d.ts');
-    return isTypings || (/\.tsx?$/.test(path) && !path.endsWith('.d.ts'));`,
+          `&& !path.endsWith('.d.ts');`,
+          `&& (path.endsWith('typings.d.ts') || path.endsWith('index.d.ts') || !path.endsWith('.d.ts'));`,
         )
         .replace(
-          `
-    (0, _path.join)(srcPath, '**/*')`,
-          `
-    (0, _path.join)(srcPath, '../typings.d.ts'),(0, _path.join)(srcPath, '../index.d.ts'),(0, _path.join)(srcPath, '../typings/index.d.ts'),(0, _path.join)(srcPath, '**/*'),`,
+          `[(0, _path.join)(srcPath, '**/*'),`,
+          `[(0, _path.join)(srcPath, '../typings.d.ts'),(0, _path.join)(srcPath, '../index.d.ts'),(0, _path.join)(srcPath, '../typings/index.d.ts'),(0, _path.join)(srcPath, '**/*'),`,
         );
     },
   },
@@ -120,8 +145,11 @@ const run = () => {
         throw err;
       }
       // console.log('=====data=====')
-      // console.log(data)
+      // console.log(data.indexOf(`&& !path.endsWith('.d.ts');`))
+      // console.log(typeof data)
+      // console.log(String(data))
       // console.log('=====data=====')
+
       const fixed = item.hack(data);
       fixed &&
         fs.writeFile(finalPath, fixed, err => {
