@@ -28,7 +28,11 @@ const Foo: React.FC<TFooProps> = ({
         <img src={HeartImg} alt="heart" />
         <Divider type="vertical" />
       </h1>
-      <img src={BgImg} alt="bgimg" />
+      <img
+        style={{ display: 'block', margin: '0 auto' }}
+        src={BgImg}
+        alt="bgimg"
+      />
     </>
   );
 };
