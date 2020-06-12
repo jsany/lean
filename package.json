@@ -18,6 +18,7 @@
   "module": "es/index.js",
   "unpkg": "dist/index.umd.min.js",
   "typings": "dist/index.d.ts",
+  "files": ["scripts"],
   "sideEffects": false,
   "gitHooks": {
     "pre-commit": "lint-staged"
