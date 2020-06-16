@@ -22,6 +22,7 @@
   "author": {
     "name": "jiangzhiguo"
   },
+  "license": "MIT",
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
