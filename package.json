@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "lean",
   "version": "1.0.0",
   "scripts": {
@@ -12,14 +11,17 @@
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
-    "postinstall": "node scripts/hack-depend.js"
+    "hack": "node scripts/hack-depend.js"
   },
   "main": "lib/index.js",
   "module": "es/index.js",
   "unpkg": "dist/index.umd.min.js",
-  "typings": "dist/index.d.ts",
-  "files": ["scripts"],
+  "typings": "lib/index.d.ts",
+  "files": ["es","lib"],
   "sideEffects": false,
+  "author": {
+    "name": "jiangzhiguo"
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

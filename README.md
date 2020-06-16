@@ -25,7 +25,7 @@
 
 为了支持 babel 方式下，引入静态资源，并生成 d.ts 声明文件，提了 [PR](https://github.com/umijs/father/pull/220)，但 father2 目前官方没时间处理，我这里进行了 hack 处理。
 
-通过 npm 的 `[postinstall](https://docs.npmjs.com/using-npm/scripts#npm-install)` 生命周期，对 node_modules 下的依赖进行 hack 处理：
+增加 npm 命令 `"hack": "node scripts/hack-depend.js"`，对 node_modules 下的依赖进行 hack 处理：
 
 - 在 `typings.d.ts` 文件中声明非 `js/ts` 模块：
 
@@ -189,6 +189,12 @@ Install dependencies,
 
 ```bash
 $ npm i
+```
+
+Hack dependencies,
+
+```bash
+$ npm run hack
 ```
 
 Start the dev server,
