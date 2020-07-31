@@ -1,7 +1,7 @@
 import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
 import classNames from 'classnames';
-import { tuple } from '../_utils/type';
-import { getPrefixCls } from '../_utils/index';
+import { tuple } from '@/_utils/type';
+import { getPrefixCls } from '@/_utils/index';
 import './style/index.less';
 
 const buttonSizes = tuple('lg', 'sm');

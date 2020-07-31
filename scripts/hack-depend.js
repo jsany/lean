@@ -22,15 +22,15 @@ const hacks = [
     }
 
     function getTSConfig() {
-      const tsconfigPath = (0, _path.join)(cwd, 'tsconfig.json');
-      const templateTsconfigPath = (0, _path.join)(__dirname, '../template/tsconfig.json');
+      const tsconfigPath = (0, _path.join)(cwd, "tsconfig.json");
+      const templateTsconfigPath = (0, _path.join)(__dirname, "../template/tsconfig.json");
 
       if ((0, _fs.existsSync)(tsconfigPath)) {
         return getTsconfigCompilerOptions(tsconfigPath) || {};
       }
 
-      if (rootPath && (0, _fs.existsSync)((0, _path.join)(rootPath, 'tsconfig.json'))) {
-        return getTsconfigCompilerOptions((0, _path.join)(rootPath, 'tsconfig.json')) || {};
+      if (rootPath && (0, _fs.existsSync)((0, _path.join)(rootPath, "tsconfig.json"))) {
+        return getTsconfigCompilerOptions((0, _path.join)(rootPath, "tsconfig.json")) || {};
       }
 
       return getTsconfigCompilerOptions(templateTsconfigPath) || {};
@@ -48,39 +48,39 @@ const hacks = [
     }
 
     function getTSConfig() {
-      const tsconfigPath = (0, _path.join)(cwd, 'tsconfig.json');
-      const templateTsconfigPath = (0, _path.join)(__dirname, '../template/tsconfig.json');
+      const tsconfigPath = (0, _path.join)(cwd, "tsconfig.json");
+      const templateTsconfigPath = (0, _path.join)(__dirname, "../template/tsconfig.json");
 
       if ((0, _fs.existsSync)(tsconfigPath)) {
         return getTsconfigCompilerOptions(tsconfigPath) || {};
       }
 
-      if (rootPath && (0, _fs.existsSync)((0, _path.join)(rootPath, 'tsconfig.json'))) {
-        return getTsconfigCompilerOptions((0, _path.join)(rootPath, 'tsconfig.json')) || {};
+      if (rootPath && (0, _fs.existsSync)((0, _path.join)(rootPath, "tsconfig.json"))) {
+        return getTsconfigCompilerOptions((0, _path.join)(rootPath, "tsconfig.json")) || {};
       }
 
       return getTsconfigCompilerOptions(templateTsconfigPath) || {};
     }
 
     function getTSMatch() {
-      const tsconfigPath = join(cwd, 'tsconfig.json');
-      const templateTsconfigPath = join(__dirname, '../template/tsconfig.json');
+      const tsconfigPath = join(cwd, "tsconfig.json");
+      const templateTsconfigPath = join(__dirname, "../template/tsconfig.json");
       if (existsSync(tsconfigPath)) {
         return getTsconfigInclude(tsconfigPath) || [];
       }
-      if (rootPath && existsSync(join(rootPath, 'tsconfig.json'))) {
-        return getTsconfigInclude(join(rootPath, 'tsconfig.json')) || [];
+      if (rootPath && existsSync(join(rootPath, "tsconfig.json"))) {
+        return getTsconfigInclude(join(rootPath, "tsconfig.json")) || [];
       }
       return getTsconfigInclude(templateTsconfigPath) || [];
     }`,
         )
         .replace(
-          `&& !path.endsWith('.d.ts');`,
-          `&& (path.endsWith('typings.d.ts') || path.endsWith('index.d.ts') || !path.endsWith('.d.ts'));`,
+          `&& !path.endsWith(".d.ts");`,
+          `&& (path.endsWith("typings.d.ts") || path.endsWith("index.d.ts") || !path.endsWith(".d.ts"));`,
         )
         .replace(
-          `[(0, _path.join)(srcPath, '**/*'),`,
-          `[(0, _path.join)(srcPath, '../typings.d.ts'),(0, _path.join)(srcPath, '../index.d.ts'),(0, _path.join)(srcPath, '../typings/index.d.ts'),(0, _path.join)(srcPath, '**/*'),`,
+          `[(0, _path.join)(srcPath, "**/*"),`,
+          `[(0, _path.join)(srcPath, "../typings.d.ts"),(0, _path.join)(srcPath, "../index.d.ts"),(0, _path.join)(srcPath, "../typings/index.d.ts"),(0, _path.join)(srcPath, "**/*"),`,
         );
     },
   },

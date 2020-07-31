@@ -35,6 +35,17 @@ const config: IBundleOptions = {
       },
       'antd',
     ],
+    ['transform-remove-console', { exclude: ['error', 'warn', 'info'] }],
+    [
+      'module-resolver',
+      {
+        root: ['.'],
+        alias: {
+          '@': './src',
+          '@@': 'src/.umi',
+        },
+      },
+    ],
   ],
   namedExports: {
     [`${findPath('antd')}`]: ['Divider', '_Divider', 'divider'],
