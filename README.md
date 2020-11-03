@@ -7,7 +7,7 @@
 > babel 方式是文件到文件的编译，不会做额外的处理
 
 - 不要在组件中使用 cssModules，否则，构建产物也会保持 cssModules 的引用方式（形如：`import Styles from 'style/index.css`）
-- 需要生成 d.ts 文件，需要引入静态资源，看 [PR](https://github.com/umijs/father/pull/220)
+- 需要生成 d.ts 文件，需要引入静态资源，看 ~~[PR](https://github.com/umijs/father/pull/220)~~，[临时方案](https://github.com/umijs/father/issues/227)
 - 如果需要 umd 产物，不要像 antd 那样 css 和 js 分离开发，因为 umd 使用的是 rollup 打包，分离开发下 css 没有依赖关系，不会被打包
 
 ## Introduction
@@ -23,9 +23,13 @@
 
 ### support import assets && supprot d.ts
 
-为了支持 babel 方式下，引入静态资源，并生成 d.ts 声明文件，提了 [PR](https://github.com/umijs/father/pull/220)，但 father2 目前官方没时间处理，我这里进行了 hack 处理。
+为了支持 babel 方式下，引入静态资源，并生成 d.ts 声明文件，~~提了 [PR](https://github.com/umijs/father/pull/220)，但 father2 目前官方没时间处理，我这里进行了 hack 处理。~~
 
-增加 npm 命令 `"hack": "node scripts/hack-depend.js"`，对 node_modules 下的依赖进行 hack 处理：
+临时方案：<https://github.com/umijs/father/issues/227>，以下不用看了
+
+---
+
+~~增加 npm 命令 `"hack": "node scripts/hack-depend.js"`，对 node_modules 下的依赖进行 hack 处理：~~
 
 - 在 `typings.d.ts` 文件中声明非 `js/ts` 模块：
 
@@ -165,6 +169,8 @@ const run = () => {
 run();
 ```
 
+---
+
 ## 发包后，在 umi 项目中使用 lean 组件库
 
 ### 在 tsx 中使用
@@ -191,7 +197,7 @@ Install dependencies,
 $ npm i
 ```
 
-Hack dependencies,
+~~Hack dependencies,~~
 
 ```bash
 $ npm run hack

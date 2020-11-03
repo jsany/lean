@@ -1,4 +1,5 @@
 import { IBundleOptions } from 'father-build/src/types';
+import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 
 const findPath = moduleName => {
   // console.log(process.env.NODE_ENV, process.env.UMI_ENV);
@@ -42,11 +43,12 @@ const config: IBundleOptions = {
         root: ['.'],
         alias: {
           '@': './src',
-          '@@': 'src/.umi',
+          '@@': './src/.umi',
         },
       },
     ],
   ],
+  extraRollupPlugins: [typescriptPaths({ tsConfigPath: './tsconfig.json' })],
   namedExports: {
     [`${findPath('antd')}`]: ['Divider', '_Divider', 'divider'],
   },

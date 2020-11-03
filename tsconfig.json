@@ -14,15 +14,8 @@
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./typings", "./node_modules/@types"]
   },
-  "exclude": [
-    "node_modules",
-    "lib",
-    "es",
-    "dist",
-    "typings",
-    "**/__test__",
-    "test"
-  ]
+  "exclude": ["node_modules", "lib", "es", "dist", "**/__test__", "test"]
 }
