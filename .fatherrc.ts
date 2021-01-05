@@ -1,18 +1,6 @@
 import { IBundleOptions } from 'father-build/src/types';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 
-const findPath = moduleName => {
-  // console.log(process.env.NODE_ENV, process.env.UMI_ENV);
-  // console.log(require.resolve(moduleName));
-  const pathArr = require.resolve(moduleName).split('/');
-  // console.log(pathArr)
-  const pathIndex = pathArr.findIndex(path => path === moduleName);
-  // console.log(pathIndex);
-  const path = `${pathArr.slice(pathIndex).join('/')}`;
-  // console.log(path);
-  return path;
-};
-
 const config: IBundleOptions = {
   esm: 'babel',
   cjs: 'babel',
@@ -49,8 +37,5 @@ const config: IBundleOptions = {
     ],
   ],
   extraRollupPlugins: [typescriptPaths({ tsConfigPath: './tsconfig.json' })],
-  namedExports: {
-    [`${findPath('antd')}`]: ['Divider', '_Divider', 'divider'],
-  },
 };
 export default config;
